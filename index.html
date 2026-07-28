@@ -1,212 +1,195 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Perfil de Practicante de TI</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f8f8f8;
-      padding: 30px;
-      overflow-x: hidden;
-    }
-
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .etiqueta {
-      background: #fddde6;
-      padding: 10px 20px;
-      border-radius: 10px;
-      font-weight: bold;
-      margin: 10px;
-      text-align: center;
-    }
-
-    .etiqueta-subtitulo {
-      background: #f8a167;
-      padding: 10px 20px;
-      border-radius: 10px;
-      font-weight: bold;
-      margin: 10px 0 5px 0;
-    }
-
-    .grupo {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      margin-bottom: 30px;
-    }
-
-    .card {
-      background: #ffffff;
-      border-left: 4px solid #facc15;
-      padding: 12px;
-      margin-bottom: 10px;
-      border-radius: 6px;
-      width: 280px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      position: relative;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-
-    .card ul {
-      margin-top: 0;
-      padding-left: 18px;
-    }
-
-    .card em {
-      font-style: italic;
-      color: #555;
-    }
-
-    .card.active {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      width: 400px;
-      transform: translate(-50%, -50%) scale(1.2);
-      z-index: 1001;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    }
-
-    .overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.3);
-      z-index: 1000;
-      display: none;
-    }
-
-    .overlay.active {
-      display: block;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¡Alerta Fraude! | Capacitación Interbank</title>
+<style>
+:root{
+  --green:#00a86b; --dark:#063b2a; --mint:#eafff6; --white:#fff;
+  --orange:#ff9f43; --red:#e94f64; --blue:#3977ff; --purple:#7a5cff;
+  --shadow:0 12px 35px rgba(0,70,45,.12);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4fbf8;color:#12352b;line-height:1.55}
+button{font:inherit;cursor:pointer}
+.topbar{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid #d8eee5;padding:12px 5%;display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:900;color:var(--green);font-size:1.15rem}.progress{font-size:.9rem;font-weight:700;color:#41665a}
+.hero{min-height:88vh;display:flex;align-items:center;padding:55px 7%;background:linear-gradient(135deg,#e8fff5,#fff 55%,#eaf2ff)}
+.hero-grid{max-width:1150px;margin:auto;display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:center}
+.badge{display:inline-block;background:#d7fff0;color:#08784f;padding:8px 14px;border-radius:999px;font-weight:800}
+h1{font-size:clamp(2.5rem,6vw,5.5rem);line-height:.98;margin:18px 0;color:var(--dark)}
+h2{font-size:clamp(2rem,4vw,3.2rem);margin:0 0 12px;color:var(--dark)}
+h3{margin-top:0}
+.lead{font-size:1.2rem;max-width:650px}
+.cta{border:0;background:var(--green);color:#fff;padding:15px 24px;border-radius:14px;font-weight:900;box-shadow:var(--shadow);margin-top:15px}
+.cta:hover{transform:translateY(-2px)}
+.shield{font-size:10rem;text-align:center;filter:drop-shadow(0 18px 20px rgba(0,100,70,.18))}
+main{max-width:1150px;margin:auto;padding:60px 5%}
+.section-intro{text-align:center;max-width:780px;margin:0 auto 35px}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.card{background:#fff;border-radius:22px;padding:24px;box-shadow:var(--shadow);border-top:7px solid var(--green);transition:.2s}
+.card:hover{transform:translateY(-5px)}
+.icon{font-size:3rem}.keyword{font-weight:900;color:var(--green)}
+.fraud{margin:45px 0;background:#fff;border-radius:28px;box-shadow:var(--shadow);overflow:hidden}
+.fraud-head{padding:30px 35px;color:#fff}
+.phishing{background:linear-gradient(120deg,#3977ff,#5c8cff)}
+.smishing{background:linear-gradient(120deg,#7a5cff,#9a82ff)}
+.spoofing{background:linear-gradient(120deg,#ff8c42,#ffb36f)}
+.vishing{background:linear-gradient(120deg,#e94f64,#f47788)}
+.fraud-body{padding:32px;display:grid;grid-template-columns:1fr 1fr;gap:25px}
+.alert{background:#fff4f5;border-left:6px solid var(--red);padding:18px;border-radius:12px}
+.rule{background:#edfff7;border-left:6px solid var(--green);padding:18px;border-radius:12px}
+.scenario{background:#f5f8ff;padding:18px;border-radius:15px}
+.key{display:inline-block;background:#fff;color:#12352b;padding:8px 12px;border-radius:10px;font-weight:900;margin:4px 5px 0 0}
+.challenge{background:linear-gradient(135deg,#063b2a,#08784f);color:#fff;border-radius:30px;padding:40px;margin-top:60px}
+.question{background:#fff;color:#16352b;border-radius:20px;padding:25px;margin:22px 0}
+.option{display:block;width:100%;text-align:left;border:2px solid #d8eee5;background:#fff;padding:13px 15px;border-radius:12px;margin:9px 0}
+.option:hover{border-color:var(--green);background:#f1fff9}
+.option.correct{background:#d9ffed;border-color:#00a86b}.option.wrong{background:#ffe2e6;border-color:#e94f64}
+.feedback{font-weight:800;margin-top:10px}
+#result{font-size:1.4rem;font-weight:900;text-align:center;background:#fff;color:#063b2a;padding:20px;border-radius:18px;margin-top:25px}
+.final{margin-top:55px;text-align:center;padding:45px 25px;background:#eafff6;border-radius:28px}
+.quote{font-size:clamp(1.5rem,3vw,2.5rem);font-weight:900;color:var(--dark)}
+footer{text-align:center;padding:30px;color:#527066}
+@media(max-width:850px){.hero-grid,.fraud-body{grid-template-columns:1fr}.cards{grid-template-columns:1fr 1fr}.shield{font-size:7rem}}
+@media(max-width:520px){.cards{grid-template-columns:1fr}.topbar{padding:10px 4%}main{padding:45px 4%}.fraud-body{padding:22px}.fraud-head{padding:25px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
 </head>
 <body>
+<div class="topbar"><div class="logo">💚 INTERBANK | PREVENCIÓN DE FRAUDE</div><div class="progress">🎯 Microcurso interactivo</div></div>
 
-<div class="overlay" id="overlay"></div>
+<section class="hero">
+<div class="hero-grid">
+<div>
+<span class="badge">🛡️ MISIÓN: DETECTAR EL FRAUDE</span>
+<h1>¡ALERTA<br>FRAUDE!</h1>
+<p class="lead"><b>¿Podrás detectar el engaño antes de que sea demasiado tarde?</b><br>
+Aprende a reconocer las señales clave de <b>Phishing, Smishing, Spoofing y Vishing</b> de forma rápida, visual y práctica.</p>
+<button class="cta" onclick="document.getElementById('inicio').scrollIntoView({behavior:'smooth'})">🚀 ¡Comenzar capacitación!</button>
+</div>
+<div class="shield">🛡️</div>
+</div>
+</section>
 
-<div class="container">
-  <div class="etiqueta">Perfil de Practicante de TI</div>
+<main id="inicio">
+<section>
+<div class="section-intro">
+<h2>🧠 La fórmula para detectar el fraude</h2>
+<p>No memorices párrafos. Busca estas <b>4 pistas</b>: <b>CANAL + EMOCIÓN + SEÑAL + ACCIÓN</b>.</p>
+</div>
+<div class="cards">
+<div class="card"><div class="icon">📨</div><h3>1. CANAL</h3><p>¿Llegó por correo, SMS, WhatsApp o llamada?</p></div>
+<div class="card"><div class="icon">😨</div><h3>2. EMOCIÓN</h3><p>¿Intentan provocarte miedo, urgencia o intimidación?</p></div>
+<div class="card"><div class="icon">🚩</div><h3>3. SEÑAL</h3><p>¿Piden claves, tokens, datos o transferencias?</p></div>
+<div class="card"><div class="icon">🛑</div><h3>4. ACCIÓN</h3><p>Detén la interacción y aplica la regla correcta.</p></div>
+</div>
+</section>
 
-  <div class="etiqueta">Habilidades</div>
-  <div class="grupo">
-    <div>
-      <div class="etiqueta">Habilidades blandas</div>
-      <div class="card">
-        <ul>
-          <li>Comunicación efectiva</li>
-          <li>Trabajo en equipo</li>
-          <li>Empatía</li>
-          <li>Adaptabilidad</li>
-        </ul>
-      </div>
-    </div>
-    <div>
-      <div class="etiqueta">Habilidades de Investigación</div>
-      <div class="card">
-        <ul>
-          <li>Capacidad para buscar, filtrar y analizar información</li>
-          <li>Uso de fuentes confiables</li>
-        </ul>
-      </div>
-    </div>
-    <div>
-      <div class="etiqueta">Metodología de trabajo</div>
-      <div class="card">
-        <ul>
-          <li>Metodologías ágiles</li>
-          <li>Autogestión del tiempo</li>
-          <li>Trabajo por objetivos</li>
-        </ul>
-      </div>
-    </div>
-  </div>
+<section class="fraud">
+<div class="fraud-head phishing"><h2>🎣 PHISHING</h2><span class="key">📧 CORREO</span><span class="key">😨 MIEDO</span><span class="key">🚫 CERO CLICS</span></div>
+<div class="fraud-body">
+<div><h3>🔎 ¿Qué ocurre?</h3><p>El delincuente envía un correo que aparenta ser de una institución confiable y busca llevar a la víctima a una página falsa para obtener sus credenciales.</p>
+<div class="scenario"><b>Ejemplo:</b> “Detectamos una transacción sospechosa. Ingresa al portal de seguridad para cancelarla”.</div></div>
+<div><div class="alert"><b>🚩 SEÑALES DE ALERTA</b><ul><li>Remitente con letras o dominios extraños.</li><li>Enlace para iniciar sesión.</li><li>Solicitud de claves o datos sensibles.</li></ul></div><div class="rule"><b>🛑 REGLA:</b> CERO CLICS. No ingreses tus claves desde enlaces recibidos por correo.</div></div>
+</div>
+</section>
 
-  <div class="etiqueta">Habilidades técnicas</div>
-  <div class="grupo">
-    <div>
-      <div class="etiqueta">Básicas</div>
-      <div class="card">
-        <ul>
-          <li>SQL: Básico</li>
-          <li>Excel: Intermedio</li>
-          <li>Git: Básico</li>
-        </ul>
-      </div>
-    </div>
+<section class="fraud">
+<div class="fraud-head smishing"><h2>📱 SMISHING</h2><span class="key">📲 SMS / WHATSAPP</span><span class="key">⚡ URGENCIA</span><span class="key">🗑️ BORRAR Y BLOQUEAR</span></div>
+<div class="fraud-body">
+<div><h3>🔎 ¿Qué ocurre?</h3><p>Es el phishing adaptado a mensajes móviles. Busca que actúes rápido aprovechando la urgencia, curiosidad o miedo a perder un servicio.</p>
+<div class="scenario"><b>Ejemplo:</b> “Tu Token Digital ha caducado. Evita la suspensión ingresando aquí”.</div></div>
+<div><div class="alert"><b>🚩 SEÑALES DE ALERTA</b><ul><li>Enlaces acortados o extraños.</li><li>Mensaje inesperado con presión de tiempo.</li><li>Solicitud de claves, tokens o datos de tarjeta.</li></ul></div><div class="rule"><b>🛑 REGLA:</b> BORRAR Y BLOQUEAR. No abras enlaces sospechosos.</div></div>
+</div>
+</section>
 
-    <div>
-      <div class="etiqueta">Específicas</div>
+<section class="fraud">
+<div class="fraud-head spoofing"><h2>🎭 SPOOFING</h2><span class="key">📞 IDENTIDAD FALSA</span><span class="key">😌 FALSA SEGURIDAD</span><span class="key">📵 CUELGA</span></div>
+<div class="fraud-body">
+<div><h3>🔎 ¿Qué ocurre?</h3><p>El delincuente falsifica o manipula la identidad que aparece en tu teléfono o navegador para parecer una fuente legítima.</p>
+<div class="scenario"><b>Ejemplo:</b> La pantalla muestra “Interbank” y el supuesto operador pide tu Token para “validar” una operación.</div></div>
+<div><div class="alert"><b>🚩 SEÑAL DE ALERTA</b><p>Te solicitan dictar <b>Token, Clave Dinámica, CVV o Clave Web</b>.</p></div><div class="rule"><b>🛑 REGLA:</b> EL TOKEN NO SE DICTA A NADIE. Si te lo piden, CUELGA.</div></div>
+</div>
+</section>
 
-      <div class="card">
-        <div class="etiqueta-subtitulo">Datos</div>
-        <ul>
-          <li>Practicante de Business Intelligence (BI) / Analytics</li>
-          <li>Practicante de Data Science / Ciencia de Datos</li>
-        </ul>
-      </div>
+<section class="fraud">
+<div class="fraud-head vishing"><h2>📞 VISHING</h2><span class="key">🗣️ VOZ</span><span class="key">😱 INTIMIDACIÓN</span><span class="key">☎️ CORTA</span></div>
+<div class="fraud-body">
+<div><h3>🔎 ¿Qué ocurre?</h3><p>La estafa ocurre durante una llamada. El delincuente usa autoridad, presión y un discurso convincente para manipular a la víctima.</p>
+<div class="scenario"><b>Ejemplo:</b> “Su cuenta está siendo vulnerada. Transfiera su dinero a una cuenta de resguardo”.</div></div>
+<div><div class="alert"><b>🚩 SEÑALES DE ALERTA</b><ul><li>Te piden transferir dinero para “protegerlo”.</li><li>Usan amenazas o cargos de autoridad.</li><li>Te presionan para no colgar.</li></ul></div><div class="rule"><b>🛑 REGLA:</b> CORTA LA LLAMADA. Nunca transfieras dinero a una cuenta desconocida para “protegerlo”.</div></div>
+</div>
+</section>
 
-      <div class="card">
-        <div class="etiqueta-subtitulo">Procesos</div>
-        <ul>
-          <li>Practicante de Programación Power Apps / Automatización de procesos</li>
-          <li><em>Practicante Profesional de Planificación y Control TI</em></li>
-          <li>Practicante de Sistemas Integrados de Gestión (ERP / ISO)</li>
-        </ul>
-      </div>
+<section class="challenge">
+<h2>🎮 RETO FINAL: ¿PUEDES DETECTAR EL FRAUDE?</h2>
+<p>Selecciona una alternativa por pregunta. Cada respuesta correcta vale <b>4 puntos</b>. Puntaje máximo: <b>20 puntos</b>.</p>
 
-      <div class="card">
-        <div class="etiqueta-subtitulo">Desarrollo</div>
-        <ul>
-          <li>Practicante de Desarrollo Web</li>
-          <li>Practicante de Desarrollo Móvil</li>
-          <li>Practicante DevOps / Automatización de Entornos</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <div class="etiqueta-subtitulo">Redes</div>
-        <ul>
-          <li>Practicante de Redes y Telecomunicaciones</li>
-          <li>Practicante de Infraestructura TI / Soporte Técnico</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <div class="etiqueta-subtitulo">Ciberseguridad</div>
-        <ul>
-          <li>Practicante de Ciberseguridad</li>
-        </ul>
-      </div>
-    </div>
-  </div>
+<div class="question" data-answer="B">
+<h3>1️⃣ Recibes un correo con un enlace para “cancelar una transacción sospechosa”. ¿Qué tipo de fraude podría ser?</h3>
+<button class="option">A) Vishing</button><button class="option">B) Phishing</button><button class="option">C) Spoofing</button><button class="option">D) Ninguno</button><div class="feedback"></div>
 </div>
 
-<script>
-  const cards = document.querySelectorAll('.card');
-  const overlay = document.getElementById('overlay');
+<div class="question" data-answer="C">
+<h3>2️⃣ Te llega un SMS con un enlace acortado que amenaza con suspender tu cuenta. ¿Qué debes hacer?</h3>
+<button class="option">A) Abrirlo rápidamente</button><button class="option">B) Responder al mensaje</button><button class="option">C) Borrar y bloquear</button><button class="option">D) Compartirlo con un amigo</button><div class="feedback"></div>
+</div>
 
-  cards.forEach(card => {
-    card.addEventListener('click', () => {
-      document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
-      card.classList.add('active');
-      overlay.classList.add('active');
+<div class="question" data-answer="A">
+<h3>3️⃣ Una llamada parece provenir del número oficial, pero te solicitan dictar tu Token. ¿Qué haces?</h3>
+<button class="option">A) Cuelgo y no dicto el Token</button><button class="option">B) Dicto el Token si parecen profesionales</button><button class="option">C) Envío una foto de mi tarjeta</button><button class="option">D) Doy mi CVV para validar</button><div class="feedback"></div>
+</div>
+
+<div class="question" data-answer="D">
+<h3>4️⃣ Una persona dice ser autoridad y te pide transferir tu dinero a una “cuenta de resguardo”. ¿Qué tipo de engaño representa?</h3>
+<button class="option">A) Phishing</button><button class="option">B) Smishing</button><button class="option">C) Promoción bancaria</button><button class="option">D) Vishing</button><div class="feedback"></div>
+</div>
+
+<div class="question" data-answer="B">
+<h3>5️⃣ ¿Cuál es la mejor regla general para reconocer una situación sospechosa?</h3>
+<button class="option">A) Actuar rápido para evitar pérdidas</button><button class="option">B) Si hay prisa, sospecha; si piden claves, cuelga; si hay dudas, verifica</button><button class="option">C) Confiar si aparece el nombre del banco</button><button class="option">D) Dar el Token solo si dicen conocer nuestros datos</button><div class="feedback"></div>
+</div>
+
+<button class="cta" onclick="calificar()">🏆 Ver mi resultado</button>
+<div id="result">Completa las 5 preguntas para conocer tu puntaje.</div>
+</section>
+
+<section class="final">
+<div class="quote">💚 “Si hay prisa, sospecha.<br>Si piden claves, cuelga.<br>Si hay dudas, verifica.”</div>
+<p><b>¡Excelente trabajo!</b> Ya tienes las señales básicas para reconocer los principales fraudes digitales.</p>
+</section>
+</main>
+<footer>Material de capacitación | Prevención de Fraude | Interbank</footer>
+
+<script>
+let answered=0, score=0;
+document.querySelectorAll('.question').forEach(q=>{
+  q.querySelectorAll('.option').forEach((btn,i)=>{
+    btn.addEventListener('click',()=>{
+      if(q.dataset.done) return;
+      q.dataset.done="1"; answered++;
+      const letter=String.fromCharCode(65+i);
+      const feedback=q.querySelector('.feedback');
+      if(letter===q.dataset.answer){
+        score+=4; btn.classList.add('correct'); feedback.textContent="✅ ¡Correcto! Muy bien detectado.";
+      }else{
+        btn.classList.add('wrong');
+        const correctIndex=q.dataset.answer.charCodeAt(0)-65;
+        q.querySelectorAll('.option')[correctIndex].classList.add('correct');
+        feedback.textContent="❌ Revisa la señal de alerta y vuelve a intentarlo mentalmente.";
+      }
     });
   });
-
-  overlay.addEventListener('click', () => {
-    document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
-    overlay.classList.remove('active');
-  });
+});
+function calificar(){
+  const result=document.getElementById('result');
+  if(answered<5){result.textContent=`⚠️ Aún faltan ${5-answered} pregunta(s). Responde todas para obtener tu puntaje.`;return;}
+  let msg=score>=16?"🏆 ¡Excelente! Tienes muy buen ojo para detectar señales de fraude.":score>=12?"👏 ¡Muy bien! Tienes una buena base. Refuerza las reglas de neutralización.":"🧠 ¡A seguir practicando! Repasa CANAL + EMOCIÓN + SEÑAL + ACCIÓN.";
+  result.innerHTML=`Tu puntaje: <b>${score}/20 puntos</b><br>${msg}`;
+  result.scrollIntoView({behavior:'smooth',block:'center'});
+}
 </script>
-
 </body>
 </html>
